@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>favorite</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <link rel="stylesheet" href="css/style.css">
+  <!-- jQuery -->
+  <script src="../js/jquery.min.js"></script>
+</head>
+<body>
+
+  <script type="text/javascript">
+  $(window).on('load', function(){
+    for(var i = 0; i < 1000; i++){
+      $('body').append('<div class="heart"></div>');
+    }
+
+    var array = $('.heart');
+    $.each(array, function (i, element) {
+      $(this).css({
+        "top" :20 * i + "" + "px",
+        "left" : window.innerWidth * Math.random() + "" + "px"
+      })
+    });
+
+    $(window).scroll(function (){
+      $(".heart").each(function(){
+        var imgPos = $(this).offset().top;
+        var scroll = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        if (scroll > imgPos - windowHeight + windowHeight/5){
+          $(this).addClass("effect");
+        }else {
+          $(this).removeClass("effect");
+        }
+      });
+    });
+
+  });
+
+
+
+  </script>
+</body>
+</html>
