@@ -1,0 +1,33 @@
+*{
+margin: 0;
+}
+.rect{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
+  mix-blend-mode: difference;
+
+  animation: fadeIn 10s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  45% {
+    opacity:0;
+  }
+  55% {
+    opacity:1;
+  }
+  100% {
+    opacity:1;
+  }
+}

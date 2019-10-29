@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>15_neonLine</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/index.js"></script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/101/three.min.js"></script>
+  <script src="https://dl.dropbox.com/s/m1qor6z15o64wkc/stats.min.js?dl=0"></script>
+  <script src="https://dl.dropbox.com/s/sk7fbhx9burholi/dat.gui.min.js?dl=0"></script>
+  <script src="https://dl.dropbox.com/s/wsnza5pvz8iq46j/OrbitControls.js?dl=0"></script>
+
+  <!-- CopyShader.js -->
+  <script src="https://dl.dropbox.com/s/fam3q6lot05ybk4/CopyShader.js?dl=0"></script>
+  <!-- EffectComposer.js -->
+  <script src="https://dl.dropbox.com/s/lrw4op29jyln0yd/EffectComposer.js?dl=0"></script>
+  <!-- RenderPass.js -->
+  <script src="https://dl.dropbox.com/s/vnm0rtry54jsg9r/RenderPass.js?dl=0"></script>
+  <!-- MaskPass.js -->
+  <script src="https://dl.dropbox.com/s/09of6hsxhqzuj4b/MaskPass.js?dl=0"></script>
+  <!-- ShaderPass.js -->
+  <script src="https://dl.dropbox.com/s/nbhfqerymxvxsu9/ShaderPass.js?dl=0"></script>
+
+  <script src="https://dl.dropbox.com/s/ee1p9p17s4oouyq/LuminosityHighPassShader.js?dl=0"></script>
+  <script src="https://dl.dropbox.com/s/t00kvcld8utnurc/UnrealBloomPass.js?dl=0"></script>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script type="x-shader/x-vertex" id="vertexshader">
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }
+  </script>
+
+  <script type="x-shader/x-fragment" id="fragmentshader">
+    uniform sampler2D baseTexture;
+    uniform sampler2D bloomTexture;
+    varying vec2 vUv;
+    vec4 getTexture( sampler2D texture ) {
+      return mapTexelToLinear( texture2D( texture , vUv ) );
+    }
+    void main() {
+      gl_FragColor = ( getTexture( baseTexture ) + vec4( 1.0 ) * getTexture( bloomTexture ) );
+    }
+  </script>
+
+  <script  src="js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>21_skybox</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+  <script src = "../js/three.min.js"></script>
+  <!-- OrbitControls.js -->
+  <script src = "../js/OrbitControls.js"></script>
+</head>
+
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+  <script id="fragmentShader" type="x-shader/x-fragment">
+    uniform float time;
+    uniform sampler2D colorTexture;
+    varying vec2 vUv;
+    void main( void ) {
+      vec2 uv =  vUv;
+      // uv.x += abs(cos(time)*0.2+cos(time)*0.05);
+      // uv.y += sin(time)*0.5;
+      vec4 color = texture2D( colorTexture, uv/1.0);
+      gl_FragColor = vec4( color );
+    }
+  </script>
+
+  <script id="vertexShader" type="x-shader/x-vertex">
+    varying vec2 vUv;
+    void main()
+    {
+      vUv = uv;
+      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  </script>
+  <!-- partial -->
+    <script  src="js/index.js"></script>
+</body>
+
+</html>

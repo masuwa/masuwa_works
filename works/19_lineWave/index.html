@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>19_lineWave</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src = "../js/three.min.js"></script>
+		<div class="rect"></div>
+		<div id="container"></div>
+
+		<script id="fragment_shader4" type="x-shader/x-fragment">
+			uniform float time;
+			varying vec2 vUv;
+			void main( void ) {
+				vec2 position = - 0.0 + 3.0 * vUv;
+				float red = abs( sin( position.x * position.y + time / 5.0 ) );
+				float green = abs( sin( position.x * position.y + time / 4.0 ) );
+				float blue = abs( sin( position.x * position.y + time / 3.0 ) );
+				gl_FragColor = vec4( red, green, blue, 1.0 );
+			}
+		</script>
+		<script id="vertexShader" type="x-shader/x-vertex">
+			varying vec2 vUv;
+			void main()
+			{
+				vUv = uv;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+<!-- partial -->
+  <script  src="js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>18_soundVisualize2</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- three.js -->
+<script src = "js/three.min.js"></script>
+
+<div id="overlay">
+  <div>
+    <button id="startButton">Loading</button>
+  </div>
+</div>
+<div id="container"></div>
+
+<div class="link">
+  <a href="https://soundcloud.com/ma-suwa/march_01" target="_blank">music by masuwa</a>
+</div>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+  varying vec2 vUV;
+  varying vec3 vNormal;
+  void main() {
+    vUV = uv;
+    vNormal = vec3( normal );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+  }
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+  varying vec2 vUV;
+  varying vec3 vNormal;
+  uniform float u_time;
+  void main()	{
+    float r = abs(sin(u_time)*0.1);
+    vec4 c = vec4( abs(vNormal)*r + vec3( vUV, 1.0 ) , 0.0 );
+    gl_FragColor = c;
+  }
+</script>
+<!-- partial -->
+  <script  src="js/index.js"></script>
+
+</body>
+</html>

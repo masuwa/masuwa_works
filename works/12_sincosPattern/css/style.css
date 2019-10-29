@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+  }
+  body{
+    background: #bff7ff;
+  }
+  canvas#myCanvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .grad{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
