@@ -1,16 +1,30 @@
 window.addEventListener('load', init);
 
-var radian = 100;
-var curves, w, h, centerX, centerY;
+var radian = 80;
+var curves, curves2, w, h, centerX, centerY;
 var stage;
+
 function init() {
 
   createCanvas();
   stage = new createjs.Stage('myCanvas');
+
   curves = new Curves();
   curves.x = window.innerWidth/2;
   curves.y = window.innerHeight/2;
-  stage.addChild(curves);
+    stage.addChild(curves);
+
+  curves2 = new Curves();
+  curves2.x = window.innerWidth/2;
+  curves2.y = window.innerHeight/2;
+  curves2.rotation = 90;
+  // curves2.scaleX *= -1;
+  curves2.scaleY *= -1;
+  stage.addChild(curves2);
+
+
+
+
   createjs.Ticker.addEventListener("tick", stage);
   createjs.Ticker.timingMode = createjs.Ticker.RAF;
   window.addEventListener("resize", function(){
@@ -33,7 +47,7 @@ function createCanvas(){
   myCanvas.style.width = "100%";
   myCanvas.style.height = "100%";
   myCanvas.style.display = "block";
-  myCanvas.style.backgroundColor = "#FFF";
+  myCanvas.style.backgroundColor = "#222";
   myCanvas.style.position = "fixed";
   myCanvas.style.top = "0";
   myCanvas.style.left = "0";
@@ -51,13 +65,13 @@ class Line extends createjs.Shape {
       this.graphics.beginStroke(color).setStrokeStyle(0.1).moveTo(x1,y1);
     }
     var cmd = this.graphics.lineTo(x1, y1).command;
-    createjs.Tween.get(cmd, {loop: true})
+    createjs.Tween.get(cmd, {loop: false})
     .to({x:x2, y:y2},4000, createjs.Ease.cubicInOut)
-    .to({x:x3, y:y3}, 4000, createjs.Ease.cubicInOut)
-    .to({x:x2, y:y2}, 4000, createjs.Ease.cubicInOut)
-    .to({x:x3, y:y2}, 4000, createjs.Ease.cubicInOut)
-    .to({x:x2, y:y2}, 4000, createjs.Ease.cubicInOut)
-    .to({x:x1, y:y1}, 4000, createjs.Ease.cubicInOut)
+    // .to({x:x3, y:y3}, 4000, createjs.Ease.cubicInOut)
+    // .to({x:x2, y:y2}, 4000, createjs.Ease.cubicInOut)
+    // .to({x:x3, y:y2}, 4000, createjs.Ease.cubicInOut)
+    // .to({x:x2, y:y2}, 4000, createjs.Ease.cubicInOut)
+    // .to({x:x1, y:y1}, 4000, createjs.Ease.cubicInOut)
     this.on('tick', this.update, this);
   }
   update() {
@@ -75,13 +89,13 @@ class Curve extends createjs.Container {
     this.rotation = rad;
     this.scaleX *= reflect;
 
-    for(var i = 0; i < 180; i++){
-      var x1 = radian*Math.sin(i*180/90*Math.PI/90)+radian;
-      var y1 = radian*Math.cos(i*180/90*Math.PI/90)+radian;
-      var x2 = radian/2*Math.sin((i+count)*180/45*Math.PI/90)+radian*3;
-      var y2 = radian/2*Math.cos((i+count)*180/90*Math.PI/90)+radian*3;
-      var x3 = radian/2*Math.sin(((i+45)+count)*180/45*Math.PI/90)+radian*3;
-      var y3 = radian/2*Math.cos(((i+45)+count)*180/90*Math.PI/90)+radian*3;
+    for(var i = 0; i < 90; i++){
+      var x1 = radian*0.9*Math.sin(i*180/90*Math.PI/90)+radian;
+      var y1 = radian*0.9*Math.cos(i*180/90*Math.PI/90)+radian;
+      var x2 = radian*0.7*Math.sin((i+count)*180/45*Math.PI/90)+radian*3;
+      var y2 = radian*0.7*Math.cos((i+count)*180/90*Math.PI/90)+radian*3;
+      var x3 = radian*0.7*Math.sin(((i+45)+count)*180/45*Math.PI/90)+radian*3;
+      var y3 = radian*0.7*Math.cos(((i+45)+count)*180/90*Math.PI/90)+radian*3;
       var line_inst  = new Line(x1, y1, x2, y2, x3, y3, i, color);
       this.addChild(line_inst);
 
@@ -95,8 +109,8 @@ class Curve extends createjs.Container {
 class Curves extends createjs.Container {
   constructor() {
     super();
-    var white = "#333";
-    var ac_color = "#333";
+    var white = "#ccc";
+    var ac_color = "#69c3e4";
     this.scaleX = this.scaleY = 1;
 
     var curve1_1 = new Curve(0, 0, 0, -1, 20, white);
@@ -131,18 +145,26 @@ class Curves extends createjs.Container {
     this.addChild(curve3_4);
     var curve3_5 = new Curve(-2, 4, 180, 1, 100, white);
     this.addChild(curve3_5);
-
+    //
     var curve4_1 = new Curve(4, 0, -270, -1, 2, ac_color);
     this.addChild(curve4_1);
     var curve4_2 = new Curve(2, 0, -90, 1, 10, white);
     this.addChild(curve4_2);
     var curve4_3 = new Curve(6, 2, -90, -1, 40, white);
     this.addChild(curve4_3);
-    var curve4_4 = new Curve(6, 4, -90, 1, 140, white);
+    var curve4_4 = new Curve(6, 4, -90, 1, 10, white);
     this.addChild(curve4_4);
     var curve4_5 = new Curve(4, 6, -270, 1, 60, white);
     this.addChild(curve4_5);
+
+
+
+
+
+
     this.on('tick', this.update, this);
+
+
   }
   update() {
     if (window.innerWidth > 768) {
@@ -164,6 +186,8 @@ function handleResize(curves) {
   stage.canvas.height = h;
   curves.x = w/2;
   curves.y = h/2;
+  curves2.x = w/2;
+  curves2.y = h/2;
 
   // 画面更新する
   stage.update();
