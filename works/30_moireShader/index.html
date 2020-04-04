@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>30_moireShader</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+  <script src = "../js/three.min.js"></script>
+</head>
+
+</head>
+<body>
+  <div id="container"></div>
+
+      <script id="vertexShader" type="x-shader/x-vertex">
+      uniform vec2 surfaceSize;
+      varying vec2 surfacePosition;
+        void main() {
+            gl_Position = vec4( position, 1.0 );
+        }
+      </script>
+
+      <script id="fragmentShader" type="x-shader/x-fragment">
+      precision highp float;
+
+      uniform vec2 resolution;
+      uniform float time;
+      uniform vec2 mouse;
+      uniform sampler2D backbuffer;
+      uniform vec2 surfaceSize;
+      varying vec2 surfacePosition;
+
+      const float PI = 3.141592;
+      const float TAU = 2.0 * PI;
+
+      float fn( vec2 a, vec2 b )
+      {
+        float v = cos( ( dot((b-a),(a-b)) * TAU  ) );//*0.5+0.5;
+        v = 1.0-v*v;
+        v = cos( v * dot(a,b) ) * 0.5 + 0.5;
+        return v;
+      }
+
+
+      void main() {
+        vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+
+        uv += time*0.01;
+        vec2 v = fract(uv*9.2)+tan(sin(uv.x)*cos(uv.y+time*0.02)+time*0.2)+tan(sin(uv.y)*sin(uv.x+time*0.01)+time*0.1);
+        // float u = fn(v,v*1.2);
+
+
+        gl_FragColor = vec4(
+          vec3(
+            0.9-fn(v*0.9,v*0.41),
+            0.8-fn(v*0.99,v*0.23),
+            1.5-fn(v,v*0.5)+0.8),
+          1.0);
+      }
+      </script>
+     <script  src="js/index.js"></script>
+ </body>
+
+</html>

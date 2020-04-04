@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>23_colorfulShader</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400&display=swap" rel="stylesheet">
+  <script src = "../js/three.min.js"></script>
+</head>
+
+</head>
+<body>
+
+<!--参考   http://glslsandbox.com/e#59447.1 -->
+  <div id="container">
+    <h1>COLORFUL</h1>
+  </div>
+  <body>
+      <div id="container"></div>
+      <script id="vertexShader" type="x-shader/x-vertex">
+          void main() {
+              gl_Position = vec4( position, 1.0 );
+          }
+      </script>
+
+      <script id="fragmentShader" type="x-shader/x-fragment">
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+      uniform float time;
+      uniform vec2 resolution;
+
+      const int   complexity      =10;    // More points of color.
+      const float fluid_speed     = 5.0;  // スピード
+      const float color_intensity = 1.0;  //明度
+
+      float random (in vec2 st) {
+          return fract(sin(dot(st.xy,
+                               vec2(12.9898,78.233)))
+                       * 43758.5453123);
+      }
+
+      void main(){
+        vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+
+
+        float r = sqrt( dot( uv, uv ) );
+        for(int i=1;i<complexity;i++){
+          vec2 newUv = uv + time*0.01; //模様の移動
+
+          newUv.x+=2.1/float(i) * sin(float(i) * uv.y + time/fluid_speed + float(i))+mod(uv.x+uv.y,0.1) + .04;
+          newUv.y+=2.4/float(i) * cos(float(i) * uv.x + time/fluid_speed + float(i))+mod(uv.x,0.04) - 0.9;
+          uv=newUv;
+        }
+
+        vec3 col = vec3(color_intensity*cos(uv.x)+color_intensity,
+                        color_intensity*sin(uv.x)+color_intensity,
+                        color_intensity*sin(uv.x+uv.y)+color_intensity);
+
+        gl_FragColor=vec4(col, 1.0);
+      }
+      </script>
+        <script  src="js/index.js"></script>
+  </body>
+</html>
+<!-- partial -->

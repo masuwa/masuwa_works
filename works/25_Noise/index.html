@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8"/>
+  <title>25_Noise</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400&display=swap" rel="stylesheet">
+  <script src = "../js/three.min.js"></script>
+</head>
+
+</head>
+<body>
+  <div id="container">
+      <h1>Noise</h1>
+</div>
+
+  <script id="vertexShader" type="x-shader/x-vertex">
+      void main() {
+          gl_Position = vec4( position, 1.0 );
+      }
+  </script>
+
+<!--  参考 http://glslsandbox.com/e#58290.6 -->
+  <script id="fragmentShader" type="x-shader/x-fragment">
+  precision mediump float;
+  uniform float time;
+  uniform vec2 mouse;
+  uniform vec2 resolution;
+
+  const int   complexity      = 5;    // More points of color.
+
+  float random (in vec2 st) {
+      return fract(cos(dot(st.xy,
+                           vec2(12.9898,78.233)))
+                   * 43758.5453123);
+  }
+
+    void main(void){
+      vec2 uv = gl_FragCoord.xy/resolution.xy;
+
+      for(int i=1;i<complexity;i++){
+        vec2 newp = uv;
+        //newp.x += float(i)*sin(mod(uv.x,abs(sin(time)-0.5)));
+        newp.x = 0.1*float(i)*mod(uv.x,abs(sin(time*0.01))*100.0)+.5;
+        newp.y = 0.1*float(i)*mod(uv.y,abs(sin(time*0.01))*100.0)-.5;
+        //newp.x = clamp(uv.x,0.,time*0.1);
+        uv=newp;
+      }
+
+      gl_FragColor = vec4(
+        random(uv*time*0.3)*0.8,
+        random(uv*time*0.5)*0.8,
+        random(uv*0.4)*0.8,
+        1.0
+      );
+    }
+    </script>
+    <!-- partial -->
+      <script  src="js/index.js"></script>
+</body>
+</html>
