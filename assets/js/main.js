@@ -25,13 +25,12 @@ $(function(){
     $('.fadein').each(function(){
       var elemPos = $(this).offset().top;
       var scroll = $(window).scrollTop();
-      console.log(scroll);
       var windowHeight = $(window).height();
       //canvasの透明度変化
       $('#myCanvas').css('opacity',1-scroll*0.001+'');
-      $('.header').css('opacity',1-scroll*0.001+'');
-      $('.footer').css('opacity',1-scroll*0.001+'');
-      $('.about').css('opacity',1-scroll*0.001+'');
+      // $('.header').css('opacity',1-scroll*0.001+'');
+      // $('.footer').css('opacity',1-scroll*0.001+'');
+      // $('.about').css('opacity',1-scroll*0.001+'');
       $('.scroll').css('opacity',1-scroll*0.001+'');
 
       //フェードインアニメーション発火
