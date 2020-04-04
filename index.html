@@ -1,8 +1,14 @@
 
 <!DOCTYPE html>
 <html ng-app="myApp">
-  <head>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/websaite#">
     <meta charset="utf-8">
+    <meta property="og:url" content="https://masuwa.github.io/masuwa_works/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ma suwa works" />
+    <meta property="og:description" content="creativecoding works by ma suwa." />
+    <meta property="og:site_name" content="ma suwa works" />
+    <meta property="og:image" content="assets/img/og.jpg" />
     <title>ma suwa works</title>
     <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,14 +27,24 @@
       <a href="{{item.url}}" target="_blank" >
         <div class="contents__item">
           <img src="assets/img/{{item.image}}" alt="noImage">
-          <h1>{{item.title}}</h1>
-          <time>{{item.date}}</time>
+          <!-- <h1>{{item.title}}</h1> -->
+          <time>{{item.title}} | {{item.date}}</time>
         </div>
       </a>
     </div>
   </div>
 
   <div class="side">
+    <footer class="footer">
+      <div class="footer__link">
+        <p class="about"><a href="#">ABOUT</a></p><br>
+        <p><a href="https://www.instagram.com/ma_suwa/" target="_blank">instagram</a></p><br>
+        <p><a href="https://codepen.io/ma_suwa/pens/popular/" target="_blank">codepen</a></p><br>
+        <p><a href="https://soundcloud.com/ma-suwa" target="_blank">dtm</a></p><br>
+        <p><a href="https://ma-suwa.tumblr.com/" target="_blank">artworks</a></p><br>
+        <p class="copy">© 2019 masuwa works All Rights Reserved.</p>
+      </div>
+    </footer>
     <header class="header">
       <div class="header__logo">
         <a href="index.html">
@@ -46,20 +62,9 @@
         </a>
       </div>
     </header>
-    <footer class="footer">
-      <div class="footer__link">
-        <p>Links:</p>
-        <p><a href="https://www.instagram.com/ma_suwa/" target="_blank">instagram</a></p>
-        <p><a href="https://codepen.io/ma_suwa/pens/popular/" target="_blank">codepen</a></p>
-        <p><a href="https://soundcloud.com/ma-suwa" target="_blank">dtm</a></p>
-        <p><a href="https://ma-suwa.tumblr.com/" target="_blank">artworks</a></p><br>
-        <p class="copy">Copyright © 2019 masuwa works All Rights Reserved.</p>
-      </div>
-    </footer>
+
   </div>
-  <div class="about">
-    <p><a href="#">ABOUT</a></p>
-  </div>
+
 
   <div class="scroll">
     <p>Please scroll down →</p>
