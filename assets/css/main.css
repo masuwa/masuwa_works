@@ -61,7 +61,7 @@ time{
   color: #CCC;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   li{
     font-size: 1.5rem;
   }
@@ -80,7 +80,7 @@ time{
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .fadein {
       opacity : 1;
   }
@@ -96,7 +96,7 @@ time{
   height: 100vh;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .side {
     margin-left: 2rem;
     width: 300px;
@@ -142,7 +142,7 @@ time{
 }
 
 /* header_sp */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1023px) {
   .header {
     top: 2rem;
   }
@@ -208,7 +208,7 @@ time{
 }
 
 /* scroll_sp */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1023px) {
   .scroll {
     bottom: 18.5rem;
     right: -12.5rem;
@@ -252,7 +252,7 @@ time{
 
 
 /* footer_sp */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .footer {
     bottom: 2rem;
   }
@@ -327,12 +327,12 @@ time{
 }
 
 /* contents_sp */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .contents {
     margin: 0 auto;
     margin-top: 100vh;
     width: calc(690/750*100vw);
-    margin-bottom: 20rem;
+    padding-bottom: 20rem;
   }
   .contents__item {
     width: calc(330/750*100vw);
